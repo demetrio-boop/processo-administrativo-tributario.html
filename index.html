@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processo Administrativo Tributário — Material de Estudo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1a17;
+    --paper:#f6f2e9;
+    --paper-2:#efe9dc;
+    --sela:#7c1f1f;          /* selo / vermelho institucional */
+    --sela-soft:#a8443a;
+    --verde:#2f4636;         /* verde fazendário escuro */
+    --verde-soft:#5d7560;
+    --ouro:#b08322;          /* destaque dourado discreto */
+    --linha:#d4cbb6;
+    --linha-forte:#b9ad91;
+    --azul:#2a3b54;
+    --max:980px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-optical-sizing:auto;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ====== camada decorativa de fundo ====== */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(124,31,31,.05), transparent 38%),
+      radial-gradient(circle at 88% 92%, rgba(47,70,54,.06), transparent 42%);
+    pointer-events:none;z-index:0;
+  }
+
+  .wrap{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 28px;}
+
+  /* ====== CABEÇALHO / HERO ====== */
+  header.hero{
+    position:relative;
+    padding:74px 0 56px;
+    border-bottom:2px solid var(--ink);
+    overflow:hidden;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12.5px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--sela);
+    margin:0 0 26px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .eyebrow::after{content:"";height:1px;flex:1;background:var(--linha-forte);}
+  .hero h1{
+    font-family:"Fraunces",serif;
+    font-weight:600;
+    font-size:clamp(2.5rem,7vw,4.6rem);
+    line-height:.99;
+    letter-spacing:-.018em;
+    margin:0 0 26px;
+    max-width:14ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--sela);font-weight:500;}
+  .hero .lede{
+    font-size:clamp(1.12rem,2.4vw,1.4rem);
+    max-width:60ch;
+    color:#403b34;
+    margin:0 0 8px;
+  }
+  .hero .meta{
+    margin-top:34px;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12.5px;
+    letter-spacing:.04em;
+    color:var(--verde-soft);
+    display:flex;flex-wrap:wrap;gap:8px 26px;
+  }
+  .hero .meta b{color:var(--verde);font-weight:600;}
+
+  /* selo decorativo no hero */
+  .selo{
+    position:absolute;top:54px;right:-30px;
+    width:188px;height:188px;opacity:.13;
+    color:var(--ink);
+  }
+  @media(max-width:760px){.selo{width:120px;height:120px;top:28px;right:-20px;}}
+
+  /* ====== SUMÁRIO ====== */
+  nav.toc{
+    margin:0 0 14px;
+    padding:38px 0 10px;
+  }
+  nav.toc h2{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--verde-soft);font-weight:600;margin:0 0 22px;
+  }
+  nav.toc ol{
+    list-style:none;margin:0;padding:0;
+    display:grid;grid-template-columns:1fr 1fr;gap:2px 40px;
+    counter-reset:toc;
+  }
+  @media(max-width:680px){nav.toc ol{grid-template-columns:1fr;}}
+  nav.toc li{counter-increment:toc;border-top:1px solid var(--linha);}
+  nav.toc a{
+    display:flex;gap:16px;align-items:baseline;
+    padding:13px 4px;text-decoration:none;color:var(--ink);
+    transition:.18s;
+  }
+  nav.toc a::before{
+    content:counter(toc,decimal-leading-zero);
+    font-family:"IBM Plex Mono",monospace;font-size:12px;
+    color:var(--sela);min-width:26px;
+  }
+  nav.toc a:hover{background:var(--paper-2);color:var(--sela);padding-left:10px;}
+  nav.toc a span{font-family:"Fraunces",serif;font-size:1.06rem;font-weight:500;}
+
+  /* ====== SEÇÕES ====== */
+  section{padding:54px 0;border-top:1px solid var(--linha);}
+  section:first-of-type{border-top:none;}
+  .sec-head{display:flex;gap:20px;align-items:flex-start;margin-bottom:8px;}
+  .sec-num{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:13px;font-weight:600;color:var(--sela);
+    padding-top:14px;letter-spacing:.05em;white-space:nowrap;
+  }
+  h2.sec-title{
+    font-family:"Fraunces",serif;
+    font-weight:600;
+    font-size:clamp(1.7rem,4vw,2.6rem);
+    line-height:1.06;letter-spacing:-.012em;
+    margin:0 0 6px;
+  }
+  h3{
+    font-family:"Fraunces",serif;
+    font-weight:600;font-size:1.32rem;letter-spacing:-.005em;
+    margin:38px 0 4px;color:var(--verde);
+  }
+  h4{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--sela);margin:30px 0 0;font-weight:600;
+  }
+  p{margin:18px 0;}
+  p.dropcap:first-letter{
+    font-family:"Fraunces",serif;font-weight:600;
+    font-size:3.4em;line-height:.72;float:left;
+    margin:.06em .12em 0 0;color:var(--sela);
+  }
+  strong{font-weight:600;color:#000;}
+  em.term{font-style:italic;color:var(--verde);font-weight:500;}
+  a.ref{color:var(--sela);text-decoration:none;border-bottom:1px solid var(--linha-forte);}
+  a.ref:hover{background:var(--paper-2);}
+
+  /* ====== LEGENDA / SUBTÍTULO DE SEÇÃO ====== */
+  .standfirst{
+    font-size:1.16rem;color:#4a443c;font-style:italic;
+    border-left:3px solid var(--ouro);padding-left:20px;margin:22px 0 4px;
+    max-width:62ch;
+  }
+
+  /* ====== CARTÃO DE LEI ====== */
+  .lei{
+    background:var(--paper-2);
+    border:1px solid var(--linha-forte);
+    border-left:4px solid var(--verde);
+    padding:22px 26px;margin:26px 0;border-radius:3px;
+  }
+  .lei .lbl{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--verde);
+    font-weight:600;margin-bottom:8px;display:block;
+  }
+  .lei h5{
+    font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;
+    margin:0 0 6px;color:var(--ink);
+  }
+  .lei p{margin:8px 0 0;font-size:.98rem;line-height:1.62;}
+
+  /* ====== CITAÇÃO DESTAQUE ====== */
+  blockquote{
+    margin:30px 0;padding:6px 0 6px 30px;
+    border-left:3px solid var(--sela);
+    font-family:"Fraunces",serif;font-style:italic;
+    font-size:1.28rem;line-height:1.42;color:var(--verde);
+    max-width:60ch;
+  }
+  blockquote cite{
+    display:block;margin-top:12px;font-family:"IBM Plex Mono",monospace;
+    font-style:normal;font-size:11.5px;letter-spacing:.06em;
+    color:var(--verde-soft);text-transform:uppercase;
+  }
+
+  /* ====== LISTA DE PRINCÍPIOS ====== */
+  .principios{margin:30px 0;border-top:1px solid var(--linha-forte);}
+  .principio{
+    display:grid;grid-template-columns:140px 1fr;gap:8px 28px;
+    padding:20px 0;border-bottom:1px solid var(--linha);
+  }
+  @media(max-width:620px){.principio{grid-template-columns:1fr;gap:4px;}}
+  .principio dt{
+    font-family:"Fraunces",serif;font-weight:600;font-size:1.1rem;
+    color:var(--sela);line-height:1.2;
+  }
+  .principio dd{margin:0;font-size:1.02rem;line-height:1.6;color:#3c3730;}
+
+  /* ====== FLUXO DE FASES ====== */
+  .fluxo{margin:34px 0;counter-reset:fase;}
+  .fase{
+    position:relative;padding:0 0 30px 56px;
+    border-left:2px solid var(--linha-forte);margin-left:14px;
+  }
+  .fase:last-child{border-left-color:transparent;padding-bottom:4px;}
+  .fase::before{
+    counter-increment:fase;content:counter(fase);
+    position:absolute;left:-19px;top:-4px;
+    width:36px;height:36px;border-radius:50%;
+    background:var(--sela);color:#f6f2e9;
+    font-family:"IBM Plex Mono",monospace;font-size:14px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 5px var(--paper);
+  }
+  .fase h3{margin:0 0 2px;color:var(--ink);font-size:1.24rem;}
+  .fase .prazo{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;
+    letter-spacing:.08em;color:var(--verde);text-transform:uppercase;
+    margin:4px 0 0;font-weight:600;
+  }
+  .fase p{margin:10px 0 0;font-size:1.01rem;line-height:1.6;}
+
+  /* ====== TABELA COMPARATIVA ====== */
+  .tabela-wrap{margin:30px 0;overflow-x:auto;border:1px solid var(--linha-forte);border-radius:3px;}
+  table{width:100%;border-collapse:collapse;font-size:.96rem;min-width:560px;}
+  caption{
+    text-align:left;font-family:"IBM Plex Mono",monospace;font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--verde-soft);
+    padding:16px 18px 0;font-weight:600;
+  }
+  th,td{padding:14px 18px;text-align:left;vertical-align:top;border-bottom:1px solid var(--linha);}
+  thead th{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:#f6f2e9;background:var(--verde);font-weight:600;
+  }
+  tbody tr:nth-child(even){background:var(--paper-2);}
+  td:first-child{font-weight:600;font-family:"Fraunces",serif;color:var(--verde);width:34%;}
+
+  /* ====== CALLOUT REFORMA ====== */
+  .reforma{
+    background:linear-gradient(180deg,#2f4636,#26392c);
+    color:#ece6d6;border-radius:5px;padding:38px 34px;margin:34px 0;
+    position:relative;overflow:hidden;
+  }
+  .reforma::after{
+    content:"EC 132/2023";position:absolute;right:-8px;bottom:-22px;
+    font-family:"Fraunces",serif;font-weight:700;font-size:5.4rem;
+    color:rgba(255,255,255,.05);letter-spacing:-.03em;pointer-events:none;
+  }
+  .reforma .lbl{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--ouro);font-weight:600;margin-bottom:14px;
+  }
+  .reforma h3{color:#fff;margin:0 0 10px;font-size:1.5rem;}
+  .reforma p{color:#d9d2c1;margin:14px 0;position:relative;z-index:1;}
+  .reforma strong{color:#fff;}
+  .reforma .tri{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0 6px;position:relative;z-index:1;
+  }
+  @media(max-width:640px){.reforma .tri{grid-template-columns:1fr;}}
+  .reforma .tri div{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+    border-radius:4px;padding:18px;
+  }
+  .reforma .tri h6{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ouro);margin:0 0 8px;font-weight:600;
+  }
+  .reforma .tri p{margin:0;font-size:.92rem;color:#e4ddcc;}
+
+  /* ====== AVISO / NOTA ====== */
+  .nota{
+    border:1px dashed var(--linha-forte);border-radius:4px;
+    padding:18px 22px;margin:26px 0;background:rgba(176,131,34,.06);
+    font-size:.98rem;line-height:1.6;
+  }
+  .nota b{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ouro);display:block;margin-bottom:6px;}
+
+  /* ====== BENEFÍCIOS GRID ====== */
+  .beneficios{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--linha-forte);
+    border:1px solid var(--linha-forte);margin:30px 0;border-radius:3px;overflow:hidden;}
+  @media(max-width:620px){.beneficios{grid-template-columns:1fr;}}
+  .beneficios div{background:var(--paper);padding:24px 24px;}
+  .beneficios h4{margin:0 0 8px;color:var(--sela);}
+  .beneficios p{margin:0;font-size:.98rem;line-height:1.58;}
+
+  /* ====== QUESTÕES ====== */
+  .quiz details{
+    border:1px solid var(--linha-forte);border-radius:4px;
+    margin:14px 0;background:var(--paper-2);overflow:hidden;
+  }
+  .quiz summary{
+    cursor:pointer;padding:18px 22px;font-family:"Fraunces",serif;
+    font-weight:600;font-size:1.08rem;color:var(--verde);list-style:none;
+    display:flex;gap:14px;align-items:baseline;transition:.15s;
+  }
+  .quiz summary::-webkit-details-marker{display:none;}
+  .quiz summary::before{
+    content:"?";font-family:"IBM Plex Mono",monospace;font-size:13px;
+    background:var(--sela);color:#f6f2e9;width:26px;height:26px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .quiz summary:hover{background:rgba(124,31,31,.05);}
+  .quiz details[open] summary{border-bottom:1px solid var(--linha-forte);}
+  .quiz .resp{padding:18px 22px 22px;font-size:1rem;line-height:1.62;color:#3c3730;}
+  .quiz .resp::before{
+    content:"Resposta comentada";display:block;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--verde-soft);margin-bottom:8px;font-weight:600;
+  }
+
+  /* ====== GLOSSÁRIO ====== */
+  .glossario{margin:28px 0;}
+  .glossario dt{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
+    color:var(--sela);letter-spacing:.04em;margin-top:18px;text-transform:uppercase;}
+  .glossario dd{margin:4px 0 0;font-size:1rem;line-height:1.55;color:#3c3730;}
+
+  /* ====== RODAPÉ ====== */
+  footer{
+    border-top:2px solid var(--ink);margin-top:30px;padding:48px 0 60px;
+  }
+  footer .fcols{display:grid;grid-template-columns:1.4fr 1fr;gap:34px;}
+  @media(max-width:680px){footer .fcols{grid-template-columns:1fr;}}
+  footer h4{margin:0 0 14px;}
+  footer p{font-size:.92rem;line-height:1.6;color:#4a443c;margin:8px 0;}
+  footer ul{margin:0;padding:0;list-style:none;font-size:.9rem;}
+  footer li{padding:7px 0;border-top:1px solid var(--linha);color:#4a443c;}
+  footer li b{color:var(--verde);font-weight:600;}
+  .assinatura{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;
+    color:var(--verde-soft);margin-top:34px;line-height:1.7;
+  }
+
+  /* foco acessível */
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--sela);outline-offset:3px;border-radius:2px;}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <svg class="selo" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width=".6"/>
+      <path d="M50 16 L54 30 L68 30 L57 39 L61 53 L50 44 L39 53 L43 39 L32 30 L46 30 Z" fill="currentColor"/>
+      <text x="50" y="74" text-anchor="middle" font-family="monospace" font-size="6" fill="currentColor" letter-spacing="1">FISCO · LEX</text>
+    </svg>
+    <p class="eyebrow">Direito Tributário · Material de Estudo</p>
+    <h1>O Processo <em>Administrativo</em> Tributário</h1>
+    <p class="lede">Como o contribuinte discute uma cobrança de tributo dentro da própria Administração, antes e sem depender do Poder Judiciário — e o que muda com a maior reforma tributária da história recente do País.</p>
+    <div class="meta">
+      <span><b>Curso</b> Ciências Contábeis</span>
+      <span><b>Eixo</b> Contencioso fiscal</span>
+      <span><b>Atualização</b> normativa até 2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ================= SUMÁRIO ================= -->
+<nav class="toc" aria-label="Sumário">
+  <h2>Roteiro de estudo</h2>
+  <ol>
+    <li><a href="#conceito"><span>O que é, afinal</span></a></li>
+    <li><a href="#base"><span>Base legal e competência</span></a></li>
+    <li><a href="#principios"><span>Princípios que o regem</span></a></li>
+    <li><a href="#fases"><span>As fases do processo</span></a></li>
+    <li><a href="#orgaos"><span>Quem julga: DRJ e CARF</span></a></li>
+    <li><a href="#voto"><span>O voto de qualidade</span></a></li>
+    <li><a href="#judicial"><span>Administrativo x judicial</span></a></li>
+    <li><a href="#reforma"><span>A reforma tributária</span></a></li>
+    <li><a href="#beneficios"><span>Benefícios e por que importa</span></a></li>
+    <li><a href="#fixacao"><span>Questões de fixação</span></a></li>
+    <li><a href="#glossario"><span>Glossário rápido</span></a></li>
+  </ol>
+</nav>
+
+<!-- ================= 1. CONCEITO ================= -->
+<section id="conceito">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <div><h2 class="sec-title">O que é, afinal, o processo administrativo tributário</h2></div>
+  </div>
+  <p class="standfirst">Antes de qualquer disputa chegar a um juiz, existe um espaço de discussão dentro da própria máquina arrecadadora. É nesse espaço que mora o nosso tema.</p>
+
+  <p class="dropcap">Imagine que a empresa de um cliente seu receba um <em class="term">auto de infração</em> da Receita Federal cobrando imposto que ela acredita não dever. Existem dois caminhos. O primeiro é ir direto ao Poder Judiciário, o que costuma ser caro, demorado e exige advogado. O segundo é contestar a cobrança dentro da própria Administração Tributária, em um procedimento gratuito, técnico e conduzido por servidores especializados em tributos. Esse segundo caminho é o <strong>processo administrativo tributário</strong>.</p>
+
+  <p>Em uma definição direta, trata-se do procedimento pelo qual os contribuintes podem discutir ou contestar autuações fiscais, lançamentos de tributos e outras exigências perante a Administração Tributária, sem precisar recorrer inicialmente ao Judiciário. Seu objetivo é duplo. De um lado, garante ao contribuinte o contraditório, a ampla defesa e o devido processo legal. De outro, permite que a própria Administração revise seus atos e corrija eventuais erros antes de levar a cobrança adiante.</p>
+
+  <p>Para o profissional de Contabilidade, isso é território de trabalho cotidiano. O contador frequentemente é quem identifica a autuação, organiza a documentação fiscal que servirá de prova e, em muitos casos, atua diretamente na elaboração da defesa, já que a legislação não exige advogado para a esfera administrativa. Entender esse processo, portanto, não é erudição jurídica, é ferramenta de ofício.</p>
+
+  <blockquote>
+    O processo administrativo é um importante instrumento posto à disposição do cidadão para dirimir litígios na esfera pública, oferecendo um meio acessível de defesa de direitos.
+    <cite>Síntese da doutrina sobre o tema</cite>
+  </blockquote>
+
+  <h3>Uma distinção que confunde: processo e procedimento</h3>
+  <p>A doutrina separa duas ideias que parecem iguais. O <em class="term">procedimento</em> é a simples sequência de atos que leva a um resultado, como a fiscalização e a lavratura do auto de infração. O <em class="term">processo</em> existe quando essa sequência passa a ter por finalidade resolver um conflito, com participação do interessado em contraditório. Em outras palavras, enquanto a Administração apenas apura e cobra, há procedimento. Quando o contribuinte impugna e instaura o litígio, nasce o processo propriamente dito. É nessa fase litigiosa que o nosso estudo se concentra.</p>
+</section>
+
+<!-- ================= 2. BASE LEGAL ================= -->
+<section id="base">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <div><h2 class="sec-title">Base legal e a questão da competência</h2></div>
+  </div>
+  <p class="standfirst">Não existe um código único de processo tributário. O sistema é montado a partir da Constituição, do CTN e de leis específicas de cada ente federativo.</p>
+
+  <p>O ponto de partida é a Constituição de 1988. É ela que, no artigo 5º, inciso LV, assegura aos litigantes em processo administrativo o contraditório e a ampla defesa, com os meios e recursos a eles inerentes. Esse dispositivo é a viga mestra de tudo o que se segue, porque transforma a defesa administrativa em uma garantia fundamental, e não em mera concessão da Administração.</p>
+
+  <p>O Código Tributário Nacional, por sua vez, não regula o procedimento em detalhe. Ele se limita a fixar balizas gerais, como a exigência de que os atos sejam documentados e de que haja prazo para a fiscalização, além de tratar das causas de suspensão e de extinção do crédito tributário nos artigos 151 a 156. O desenho concreto do processo fica a cargo de cada ente político em relação aos tributos que administra. Isso significa que União, Estados, Distrito Federal e Municípios têm, cada um, suas próprias regras de contencioso administrativo.</p>
+
+  <p>No âmbito federal, que é o nosso foco principal, a norma central é o Decreto nº 70.235, de 1972. Apesar do nome de decreto, ele tem força de lei ordinária, pois foi assim recepcionado pela Constituição de 1988. Por isso, suas alterações dependem de lei aprovada pelo Congresso Nacional, e não de simples ato do Executivo.</p>
+
+  <div class="lei">
+    <span class="lbl">Norma de regência · esfera federal</span>
+    <h5>Decreto nº 70.235, de 6 de março de 1972</h5>
+    <p>Rege o processo administrativo de determinação e exigência dos créditos tributários da União e o de consulta sobre a aplicação da legislação tributária federal. É a espinha dorsal do contencioso fiscal federal há mais de cinquenta anos e, como veremos, está sendo profundamente alterado pela reforma tributária.</p>
+  </div>
+
+  <div class="lei">
+    <span class="lbl">Fundamento constitucional</span>
+    <h5>Constituição Federal de 1988, art. 5º, LV</h5>
+    <p>Assegura aos litigantes, em processo judicial ou administrativo, o contraditório e a ampla defesa. É a base que torna o processo administrativo uma garantia do contribuinte, exigível mesmo contra a vontade da Administração.</p>
+  </div>
+
+  <div class="lei">
+    <span class="lbl">Normas gerais</span>
+    <h5>Código Tributário Nacional (Lei nº 5.172, de 1966)</h5>
+    <p>Trata da suspensão da exigibilidade do crédito pela impugnação e pelos recursos (art. 151, III), das causas de extinção do crédito, incluída a transação (art. 156, III), e dos efeitos das decisões administrativas (art. 100). Não disciplina o rito, que cabe a cada ente.</p>
+  </div>
+</section>
+
+<!-- ================= 3. PRINCÍPIOS ================= -->
+<section id="principios">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <div><h2 class="sec-title">Os princípios que regem o processo</h2></div>
+  </div>
+  <p class="standfirst">Como não há um código único, os princípios funcionam como o cimento que dá unidade e coerência ao sistema. Eles protegem o contribuinte contra abusos.</p>
+
+  <p>Os princípios do processo administrativo tributário derivam, em boa parte, dos princípios gerais da Administração Pública do artigo 37 da Constituição, somados às garantias processuais do artigo 5º. Vale conhecê-los um a um, porque eles aparecem com frequência em provas e, mais importante, são os argumentos que sustentam uma boa defesa.</p>
+
+  <dl class="principios">
+    <div class="principio">
+      <dt>Legalidade</dt>
+      <dd>A Administração só pode agir conforme a lei. Tanto a cobrança quanto o julgamento devem ter respaldo normativo expresso, sem espaço para arbítrio.</dd>
+    </div>
+    <div class="principio">
+      <dt>Contraditório e ampla defesa</dt>
+      <dd>O contribuinte tem o direito de ser ouvido, de conhecer todos os atos do processo e de apresentar defesa e provas em todas as fases. É o coração da garantia constitucional.</dd>
+    </div>
+    <div class="principio">
+      <dt>Oficialidade</dt>
+      <dd>Uma vez instaurado, o processo avança por impulso da própria Administração, que tem o dever de movimentá-lo até a decisão final, sem depender de provocação constante do contribuinte.</dd>
+    </div>
+    <div class="principio">
+      <dt>Verdade material</dt>
+      <dd>A Administração deve buscar os fatos como realmente ocorreram, e não se contentar com a versão formal dos documentos. Provas podem ser trazidas ao longo do processo. É uma vantagem do contribuinte em relação ao processo judicial, que se satisfaz com a verdade formal.</dd>
+    </div>
+    <div class="principio">
+      <dt>Informalidade</dt>
+      <dd>As formas são as mínimas indispensáveis. O contribuinte pode atuar sem advogado, o que torna o processo mais acessível, sobretudo para pequenas empresas e pessoas físicas.</dd>
+    </div>
+    <div class="principio">
+      <dt>Devido processo legal</dt>
+      <dd>Ninguém pode ser privado de seus bens sem o processo previsto em lei. Garante que a exigência tributária só se torne definitiva após o trâmite regular.</dd>
+    </div>
+    <div class="principio">
+      <dt>Razoável duração</dt>
+      <dd>Inscrito no art. 5º, LXXVIII, da Constituição, busca o equilíbrio entre a celeridade da decisão e o cuidado técnico necessário a uma solução justa.</dd>
+    </div>
+    <div class="principio">
+      <dt>Publicidade e motivação</dt>
+      <dd>Os atos devem ser transparentes e as decisões fundamentadas. O contribuinte tem direito de saber exatamente por que ganhou ou perdeu, o que viabiliza eventual recurso.</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ================= 4. FASES ================= -->
+<section id="fases">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <div><h2 class="sec-title">As fases do processo, passo a passo</h2></div>
+  </div>
+  <p class="standfirst">Do primeiro contato com o fiscal até a decisão final, o processo segue uma trilha previsível. Conhecê-la ajuda a saber, a cada momento, o que pode ser feito.</p>
+
+  <p>O processo administrativo fiscal federal pode ser organizado em uma fase inicial, que ainda não é litigiosa, e a fase contenciosa, que se abre com a impugnação. A trilha a seguir descreve esse percurso. Atenção a um detalhe importante de atualização: o prazo clássico de trinta dias corridos do Decreto nº 70.235 foi alterado para vinte dias úteis no contencioso dos novos tributos da reforma, ponto que detalhamos na seção sobre a reforma tributária.</p>
+
+  <div class="fluxo">
+    <div class="fase">
+      <h3>Procedimento fiscal e lançamento</h3>
+      <p class="prazo">Fase não litigiosa</p>
+      <p>Tudo começa com a ação fiscal. O fiscal examina a situação do contribuinte e, se entender que há tributo não recolhido, formaliza a exigência por meio de um auto de infração ou de uma notificação de lançamento. Esse documento constitui o crédito tributário e dá ao contribuinte ciência do que está sendo cobrado e da possibilidade de se defender.</p>
+    </div>
+    <div class="fase">
+      <h3>Impugnação</h3>
+      <p class="prazo">Início da fase litigiosa · 30 dias (regra clássica)</p>
+      <p>É o ato com que o contribuinte instaura o litígio. Na impugnação, apresentada por escrito ao órgão competente, ele expõe todas as razões de fato e de direito e anexa as provas que sustentam sua posição. A regra tradicional do Decreto nº 70.235 é de trinta dias corridos contados da ciência da autuação. A peça deve contestar expressamente cada ponto, pois o que não for impugnado é considerado aceito.</p>
+    </div>
+    <div class="fase">
+      <h3>Instrução e julgamento em primeira instância</h3>
+      <p class="prazo">Decisão colegiada da DRJ</p>
+      <p>Apresentada a impugnação, o processo segue para a Delegacia da Receita Federal do Brasil de Julgamento, a DRJ. Trata-se de um órgão colegiado, formado por Auditores-Fiscais, que analisa as provas e os argumentos e profere a decisão de primeiro grau. Como a decisão é tomada por uma turma, e não por um único julgador, o contribuinte obtém uma revisão qualificada do lançamento.</p>
+    </div>
+    <div class="fase">
+      <h3>Recursos</h3>
+      <p class="prazo">Recurso voluntário e recurso de ofício</p>
+      <p>Da decisão da DRJ cabem dois caminhos. Se o contribuinte perdeu, total ou parcialmente, pode interpor recurso voluntário, dotado de efeito suspensivo. Se a Fazenda foi quem perdeu, acima de certo valor, a própria autoridade recorre de ofício contra a decisão. Em ambos os casos, o processo sobe para a segunda instância.</p>
+    </div>
+    <div class="fase">
+      <h3>Segunda instância e decisão final</h3>
+      <p class="prazo">Julgamento no CARF</p>
+      <p>O recurso é julgado pelo Conselho Administrativo de Recursos Fiscais, o CARF, órgão paritário que reúne representantes da Fazenda e dos contribuintes. Esgotados os recursos, forma-se a decisão administrativa final, que encerra a discussão dentro da Administração e define se o crédito será cobrado ou cancelado.</p>
+    </div>
+  </div>
+
+  <div class="nota">
+    <b>Efeito decisivo da impugnação</b>
+    Enquanto o processo tramita, a exigibilidade do crédito fica suspensa, na forma do art. 151, III, do CTN. Na prática, isso significa que o Fisco não pode cobrar o valor, não pode inscrevê-lo em dívida ativa e o contribuinte mantém sua regularidade fiscal por meio de certidão positiva com efeitos de negativa. É uma das maiores vantagens de se defender na esfera administrativa.
+  </div>
+</section>
+
+<!-- ================= 5. ÓRGÃOS ================= -->
+<section id="orgaos">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <div><h2 class="sec-title">Quem julga: a DRJ e o CARF</h2></div>
+  </div>
+  <p class="standfirst">Toda a estrutura de julgamento federal está dentro do Ministério da Fazenda. A matéria não passa por outros órgãos da Administração até a decisão final.</p>
+
+  <h3>Primeira instância: as Delegacias de Julgamento</h3>
+  <p>A Delegacia da Receita Federal do Brasil de Julgamento, ou DRJ, é o órgão que decide as impugnações em primeiro grau. É uma estrutura colegiada da Receita Federal, organizada em turmas integradas por Auditores-Fiscais. A decisão de primeira instância, portanto, nunca é monocrática. Ela resulta da deliberação de uma turma de julgadores, o que confere mais segurança técnica à revisão do lançamento.</p>
+
+  <h3>Segunda instância: o Conselho Administrativo de Recursos Fiscais</h3>
+  <p>O CARF é o órgão de cúpula do contencioso administrativo federal e também integra o Ministério da Fazenda. Tem competência recursal, ou seja, não julga impugnações diretamente, mas os recursos interpostos das decisões das DRJ. Sua característica mais marcante é a <strong>paridade</strong>. Diferentemente da DRJ, o CARF não pode ser composto apenas por Auditores-Fiscais. Ele reúne, em igual número, representantes da Fazenda Nacional e representantes dos contribuintes, estes indicados por confederações econômicas e centrais sindicais.</p>
+
+  <p>O CARF se organiza em Seções, especializadas por matéria, e na Câmara Superior de Recursos Fiscais. As Seções se dividem por tributo. A título de exemplo, questões de Imposto de Renda da Pessoa Jurídica vão para uma Seção, as de Imposto de Renda da Pessoa Física para outra, e as de Imposto sobre Produtos Industrializados para uma terceira. A Câmara Superior existe para uniformizar a jurisprudência, julgando o Recurso Especial quando uma turma do CARF interpreta a lei de modo divergente de outra.</p>
+
+  <h3>Um limite importante ao julgador</h3>
+  <p>Há uma regra que costuma surpreender. Os julgadores do contencioso administrativo, tanto na DRJ quanto no CARF, em princípio <strong>não podem declarar a inconstitucionalidade de uma lei</strong>. É o que estabelece o art. 26-A do Decreto nº 70.235. Mesmo que considerem a lei manifestamente inconstitucional, devem aplicá-la, salvo nas exceções previstas, como quando o próprio Supremo Tribunal Federal já a declarou inconstitucional em decisão definitiva. A lógica é que o controle de constitucionalidade cabe ao Judiciário, não à Administração.</p>
+</section>
+
+<!-- ================= 6. VOTO DE QUALIDADE ================= -->
+<section id="voto">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <div><h2 class="sec-title">O voto de qualidade e suas idas e vindas</h2></div>
+  </div>
+  <p class="standfirst">Poucos temas tributários oscilaram tanto na legislação recente. A história do voto de qualidade é um ótimo retrato da instabilidade normativa brasileira.</p>
+
+  <p>Como as turmas do CARF são paritárias, com número par de conselheiros, os julgamentos podem terminar empatados. O <em class="term">voto de qualidade</em> é a regra que resolve esse empate. A pergunta de fundo é simples e politicamente sensível: em caso de empate, quem ganha, o Fisco ou o contribuinte?</p>
+
+  <p>Tradicionalmente, o desempate cabia ao presidente da turma, que é sempre um representante da Fazenda Nacional, o que tendia a favorecer o Fisco. Em 2020, a <strong>Lei nº 13.988</strong> mudou isso: extinguiu o voto de qualidade e determinou que, no empate, prevalecesse a posição mais favorável ao contribuinte. Seguiu-se um período de grande oscilação, com medida provisória e ações no Supremo, até que, em 2023, a <strong>Lei nº 14.689</strong> restabeleceu o voto de qualidade em favor da Fazenda.</p>
+
+  <p>O retorno, porém, veio acompanhado de contrapartidas relevantes ao contribuinte. Nos casos decididos por voto de qualidade a favor da União, havendo manifestação para pagamento em prazo determinado, ficam excluídos os juros de mora e o débito pode ser parcelado, admitido o uso de créditos como prejuízo fiscal. Além disso, a lei reduziu a multa qualificada do patamar histórico de 150% para 100%, reservando os 150% para casos de reincidência. É um exemplo precioso de como o desenho processual carrega, por trás, escolhas de política fiscal e de equilíbrio entre arrecadação e direitos.</p>
+
+  <div class="nota">
+    <b>Para guardar</b>
+    A linha do tempo do desempate no CARF: até 2020, voto de qualidade pró-Fazenda; Lei nº 13.988/2020, desempate pró-contribuinte; Lei nº 14.689/2023, retorno do voto de qualidade pró-Fazenda, com abrandamento de multas e juros para quem paga. Material de prova garantido.
+  </div>
+</section>
+
+<!-- ================= 7. ADMINISTRATIVO X JUDICIAL ================= -->
+<section id="judicial">
+  <div class="sec-head">
+    <span class="sec-num">07</span>
+    <div><h2 class="sec-title">Esfera administrativa e esfera judicial</h2></div>
+  </div>
+  <p class="standfirst">A decisão administrativa, por mais definitiva que pareça, nunca é a última palavra. No Brasil, só o Judiciário decide em caráter realmente imutável.</p>
+
+  <p>O Brasil adota o modelo de <em class="term">jurisdição una</em>. Por ele, apenas as decisões do Poder Judiciário transitam em julgado e se tornam imutáveis. As decisões administrativas, ainda que finais dentro da Administração, podem sempre ser questionadas em juízo. Isso decorre do princípio da inafastabilidade da jurisdição, do art. 5º, XXXV, da Constituição, segundo o qual a lei não excluirá da apreciação do Judiciário lesão ou ameaça a direito.</p>
+
+  <p>Na prática, isso gera uma assimetria interessante. Se o contribuinte perde no CARF, ele ainda pode levar a questão ao Judiciário, rediscutindo a matéria desde a primeira instância. Mas se o contribuinte ganha no CARF, a Fazenda, em regra, não pode recorrer ao Judiciário para reverter a decisão administrativa que lhe foi desfavorável. Por isso se diz que a vitória definitiva do contribuinte costuma vir da esfera administrativa, enquanto sua derrota administrativa ainda comporta uma segunda chance judicial.</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <caption>Comparativo essencial</caption>
+      <thead>
+        <tr><th>Aspecto</th><th>Esfera administrativa</th><th>Esfera judicial</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Quem julga</td><td>Órgãos da própria Administração (DRJ, CARF)</td><td>Juízes e tribunais do Poder Judiciário</td></tr>
+        <tr><td>Custo</td><td>Gratuito, sem custas nem depósito prévio</td><td>Custas processuais e, em regra, honorários</td></tr>
+        <tr><td>Advogado</td><td>Dispensável (princípio da informalidade)</td><td>Obrigatório</td></tr>
+        <tr><td>Verdade buscada</td><td>Material (os fatos como ocorreram)</td><td>Formal (o que está provado nos autos)</td></tr>
+        <tr><td>Definitividade</td><td>Final apenas na Administração, sem coisa julgada</td><td>Coisa julgada, decisão imutável</td></tr>
+        <tr><td>Constitucionalidade</td><td>Julgador não pode afastar lei (salvo exceções)</td><td>Pode reconhecer inconstitucionalidade</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 8. REFORMA TRIBUTÁRIA ================= -->
+<section id="reforma">
+  <div class="sec-head">
+    <span class="sec-num">08</span>
+    <div><h2 class="sec-title">A reforma tributária e o impacto no contencioso</h2></div>
+  </div>
+  <p class="standfirst">Este é o ponto que torna o tema urgente. A reforma do consumo não mudou só os tributos: está reconstruindo o próprio modelo de contencioso administrativo do País.</p>
+
+  <p>A Emenda Constitucional nº 132, de 2023, instituiu a reforma tributária do consumo, criando dois novos tributos sobre bens e serviços. A Contribuição sobre Bens e Serviços, a <strong>CBS</strong>, de competência federal, e o Imposto sobre Bens e Serviços, o <strong>IBS</strong>, de competência compartilhada entre Estados, Distrito Federal e Municípios. Esses dois tributos substituirão, ao longo da transição, o PIS, a Cofins, o IPI, o ICMS e o ISS. A consequência para o nosso tema é profunda, porque cada tributo precisa de uma estrutura de contencioso, e a reforma desenhou um modelo novo.</p>
+
+  <div class="reforma">
+    <p class="lbl">O novo arranjo institucional</p>
+    <h3>Um contencioso, três conjuntos de regras</h3>
+    <p>A Lei Complementar nº 227, de janeiro de 2026, instituiu o Comitê Gestor do IBS e regulou o processo administrativo dos novos tributos. O resultado é um sistema com camadas que convivem ao mesmo tempo. Para a <strong>CBS</strong>, federal, segue valendo o Decreto nº 70.235, agora alterado. Para o <strong>IBS</strong>, dos Estados e Municípios, vale a própria LC 227, com julgamento no Comitê Gestor. E para a legislação comum aos dois, foi criada a Câmara Nacional de Integração, encarregada de uniformizar a interpretação e evitar decisões contraditórias entre o CARF e o Comitê Gestor.</p>
+    <div class="tri">
+      <div>
+        <h6>CBS · federal</h6>
+        <p>Julgamento mantido no CARF, sob o Decreto nº 70.235 alterado pela LC 227.</p>
+      </div>
+      <div>
+        <h6>IBS · Estados e Municípios</h6>
+        <p>Julgamento no Comitê Gestor do IBS, em estrutura espelhada no CARF, com três instâncias.</p>
+      </div>
+      <div>
+        <h6>Legislação comum</h6>
+        <p>Câmara Nacional de Integração harmoniza a jurisprudência dos dois sistemas.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>A estrutura do contencioso do IBS</h3>
+  <p>O contencioso do IBS foi modelado em três instâncias, em desenho semelhante ao do CARF. A primeira instância funcionará por câmaras de julgamento, compostas de forma paritária por servidores de Estados e Municípios, que apreciarão as impugnações iniciais. A segunda instância, recursal, terá câmaras também paritárias, agora com a participação de representantes dos contribuintes. No topo, uma instância de uniformização, a Câmara Superior do IBS, formada por representantes dos entes federativos e dos contribuintes, com poder de editar súmulas e provimentos vinculantes para dar coerência às decisões em todo o País.</p>
+
+  <h3>O que muda na prática para o contribuinte</h3>
+  <p>A mudança mais sensível no dia a dia é a dos prazos. A LC 227 unificou em <strong>vinte dias úteis</strong> o prazo de impugnação e de recurso voluntário no contencioso dos novos tributos, em substituição aos trinta dias corridos da regra clássica. A contagem em dias úteis e a previsão de suspensão dos prazos entre 20 de dezembro e 20 de janeiro aproximam o processo fiscal da lógica do processo civil. Há, porém, uma crítica relevante. Embora a contagem em dias úteis seja um avanço, o prazo total disponível para a defesa, na essência, diminuiu, o que preocupa em casos que exigem provas complexas e laudos contábeis.</p>
+
+  <p>Há ainda um ponto que merece atenção do futuro contador. Como o mesmo fato gerador, em uma única operação, pode envolver tanto a CBS quanto o IBS, uma autuação pode, em tese, desdobrar-se em julgamentos diferentes, com prazos e instâncias distintos e até resultados divergentes. Isso exige coordenação cuidadosa da defesa nos dois sistemas, com manutenção sincronizada de provas e atenção redobrada para preservar o cabimento do recurso de uniformização. É um cenário de transição que vai marcar os próximos anos da prática tributária.</p>
+
+  <div class="nota">
+    <b>Atenção ao período de transição</b>
+    Durante a implementação da reforma, os modelos antigo e novo coexistem. O Decreto nº 70.235 continua aplicável a várias frentes do contencioso federal, e os tributos em extinção, como ICMS e ISS, ainda geram processos sob as regras anteriores. Na prática profissional, será preciso identificar, caso a caso, qual sistema rege cada autuação.
+  </div>
+</section>
+
+<!-- ================= 9. BENEFÍCIOS ================= -->
+<section id="beneficios">
+  <div class="sec-head">
+    <span class="sec-num">09</span>
+    <div><h2 class="sec-title">Benefícios e por que isso importa para você</h2></div>
+  </div>
+  <p class="standfirst">Para além da teoria, o processo administrativo tributário oferece vantagens concretas que fazem dele, muitas vezes, o melhor caminho de defesa.</p>
+
+  <div class="beneficios">
+    <div>
+      <h4>Gratuidade</h4>
+      <p>Em regra, não há custas processuais nem necessidade de depósito ou garantia para discutir. A defesa administrativa é acessível mesmo a quem tem pouco capital de giro.</p>
+    </div>
+    <div>
+      <h4>Suspensão da cobrança</h4>
+      <p>A impugnação suspende a exigibilidade do crédito. O Fisco não pode cobrar nem inscrever em dívida ativa, e o contribuinte mantém certidão de regularidade enquanto discute.</p>
+    </div>
+    <div>
+      <h4>Julgamento técnico</h4>
+      <p>As decisões vêm de órgãos especializados em tributos, com profundidade técnica que nem sempre se encontra na esfera judicial generalista.</p>
+    </div>
+    <div>
+      <h4>Sem necessidade de advogado</h4>
+      <p>Pelo princípio da informalidade, o próprio contribuinte ou o contador pode conduzir a defesa, o que abre espaço de atuação direta para o profissional contábil.</p>
+    </div>
+    <div>
+      <h4>Revisão pela própria Administração</h4>
+      <p>O processo dá ao Fisco a chance de corrigir erros, o que muitas vezes resulta no cancelamento ou na redução da autuação sem necessidade de litígio judicial.</p>
+    </div>
+    <div>
+      <h4>Desafogo do Judiciário</h4>
+      <p>Resolver o conflito na esfera administrativa evita a multiplicação de processos judiciais, beneficiando o sistema como um todo e a sociedade.</p>
+    </div>
+  </div>
+
+  <p>Para o estudante de Ciências Contábeis, a mensagem central é esta. O processo administrativo tributário não é um assunto exclusivo de advogados. É um instrumento de gestão fiscal que o contador domina e utiliza, da identificação da autuação à montagem da defesa documental. Compreendê-lo bem é parte de prestar um serviço completo e estratégico a quem confia a você a saúde tributária do seu negócio.</p>
+</section>
+
+<!-- ================= 10. QUESTÕES ================= -->
+<section id="fixacao">
+  <div class="sec-head">
+    <span class="sec-num">10</span>
+    <div><h2 class="sec-title">Questões de fixação</h2></div>
+  </div>
+  <p class="standfirst">Teste sua compreensão. Tente responder antes de abrir o comentário de cada questão.</p>
+
+  <div class="quiz">
+    <details>
+      <summary>Qual a principal diferença entre procedimento e processo na esfera fiscal?</summary>
+      <div class="resp">O procedimento é a simples sequência de atos voltada a um resultado, como a fiscalização e a lavratura do auto de infração, sem conflito instaurado. O processo surge quando essa sequência passa a ter por finalidade resolver um litígio, com participação do interessado em contraditório. Na esfera fiscal, a fase não litigiosa é procedimento, e o processo propriamente dito começa com a impugnação do contribuinte.</div>
+    </details>
+    <details>
+      <summary>Por que se diz que o Decreto nº 70.235/1972 tem força de lei, e qual a consequência disso?</summary>
+      <div class="resp">Apesar de ser formalmente um decreto, ele foi recepcionado pela Constituição de 1988 com status de lei ordinária. A consequência prática é que suas alterações só podem ser feitas por lei aprovada pelo Congresso Nacional, e não por simples ato do Poder Executivo. Foi exatamente por meio de leis, como a 14.689/2023, e da LC 227/2026, que ele vem sendo modificado.</div>
+    </details>
+    <details>
+      <summary>O que acontece com a cobrança do tributo enquanto o processo administrativo tramita?</summary>
+      <div class="resp">A exigibilidade do crédito tributário fica suspensa, conforme o art. 151, III, do CTN. Isso significa que o Fisco não pode cobrar o valor, não pode inscrevê-lo em dívida ativa nem ajuizar execução fiscal, e o contribuinte mantém sua regularidade fiscal por meio de certidão positiva com efeitos de negativa, até a decisão administrativa final.</div>
+    </details>
+    <details>
+      <summary>Explique a paridade do CARF e o papel do voto de qualidade.</summary>
+      <div class="resp">A paridade significa que o CARF é composto, em igual número, por representantes da Fazenda Nacional e por representantes dos contribuintes. Como o número de conselheiros é par, pode haver empate. O voto de qualidade é o critério de desempate, atribuído ao presidente da turma, que é sempre representante da Fazenda. Após a Lei nº 14.689/2023, o empate volta a ser resolvido pelo voto de qualidade em favor da Fazenda, com abrandamento de multas e juros para o contribuinte que optar por pagar.</div>
+    </details>
+    <details>
+      <summary>No modelo de jurisdição una, a decisão final do CARF é imutável? Justifique.</summary>
+      <div class="resp">Não. No modelo de jurisdição una adotado no Brasil, apenas as decisões do Poder Judiciário transitam em julgado. A decisão final do CARF é definitiva apenas dentro da Administração. O contribuinte derrotado ainda pode levar a matéria ao Judiciário, por força da inafastabilidade da jurisdição do art. 5º, XXXV, da Constituição. Já a Fazenda, em regra, não recorre ao Judiciário contra decisão administrativa que lhe foi desfavorável.</div>
+    </details>
+    <details>
+      <summary>Como a reforma tributária reorganizou o contencioso administrativo, e por que isso preocupa?</summary>
+      <div class="resp">A EC 132/2023 criou a CBS, federal, e o IBS, dos Estados e Municípios. A LC 227/2026 estabeleceu que a CBS continua julgada no CARF, sob o Decreto nº 70.235 alterado, enquanto o IBS é julgado no Comitê Gestor, em estrutura de três instâncias espelhada no CARF. Para a legislação comum aos dois, criou-se a Câmara Nacional de Integração. A preocupação é que um mesmo fato gerador pode ser julgado em sistemas diferentes, com prazos, instâncias e até resultados divergentes, exigindo coordenação cuidadosa da defesa.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ================= 11. GLOSSÁRIO ================= -->
+<section id="glossario">
+  <div class="sec-head">
+    <span class="sec-num">11</span>
+    <div><h2 class="sec-title">Glossário rápido</h2></div>
+  </div>
+  <p class="standfirst">Os termos que mais aparecem no tema, em definições de bolso para consulta.</p>
+
+  <dl class="glossario">
+    <dt>Auto de infração</dt>
+    <dd>Documento pelo qual a autoridade fiscal formaliza a exigência do tributo e eventuais penalidades, constituindo o crédito tributário e dando início à possibilidade de defesa.</dd>
+    <dt>Impugnação</dt>
+    <dd>Peça de defesa apresentada pelo contribuinte contra a autuação. É o ato que instaura a fase litigiosa do processo administrativo.</dd>
+    <dt>DRJ</dt>
+    <dd>Delegacia da Receita Federal do Brasil de Julgamento. Órgão colegiado de primeira instância, formado por Auditores-Fiscais, que julga as impugnações.</dd>
+    <dt>CARF</dt>
+    <dd>Conselho Administrativo de Recursos Fiscais. Órgão paritário de segunda instância, com representantes da Fazenda e dos contribuintes, que julga os recursos.</dd>
+    <dt>Recurso voluntário</dt>
+    <dd>Recurso interposto pelo contribuinte contra a decisão da DRJ que lhe foi desfavorável, com efeito suspensivo.</dd>
+    <dt>Recurso de ofício</dt>
+    <dd>Recurso apresentado pela própria autoridade quando a decisão de primeira instância exonera o contribuinte acima de determinado valor. É condição de eficácia da decisão contra o interesse da Fazenda.</dd>
+    <dt>Voto de qualidade</dt>
+    <dd>Critério de desempate nos julgamentos colegiados, atribuído ao presidente da turma, representante da Fazenda Nacional.</dd>
+    <dt>Jurisdição una</dt>
+    <dd>Modelo em que apenas o Poder Judiciário profere decisões imutáveis. As decisões administrativas podem sempre ser revistas em juízo.</dd>
+    <dt>CBS</dt>
+    <dd>Contribuição sobre Bens e Serviços, tributo federal criado pela reforma, julgada no CARF.</dd>
+    <dt>IBS</dt>
+    <dd>Imposto sobre Bens e Serviços, de competência compartilhada de Estados e Municípios, julgado no Comitê Gestor do IBS.</dd>
+    <dt>Comitê Gestor do IBS</dt>
+    <dd>Entidade interfederativa que administra o IBS e conduz seu contencioso administrativo, em estrutura semelhante à do CARF.</dd>
+    <dt>Câmara Nacional de Integração</dt>
+    <dd>Instância criada para uniformizar a jurisprudência das matérias comuns à CBS e ao IBS, evitando decisões contraditórias entre o CARF e o Comitê Gestor.</dd>
+  </dl>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- ================= RODAPÉ ================= -->
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div>
+        <h4>Sobre este material</h4>
+        <p>Texto de apoio para a disciplina de Direito Tributário no curso de Ciências Contábeis. Reúne o conceito, os princípios, as fases e os órgãos do processo administrativo tributário federal, atualizado pelas alterações da Lei nº 14.689/2023 e pela reforma tributária do consumo regulada pela LC 227/2026.</p>
+        <p>O conteúdo tem finalidade didática e não substitui a leitura da legislação nem a orientação técnica para casos concretos. As regras da reforma estão em fase de implementação e podem ser detalhadas por regulamentos posteriores.</p>
+      </div>
+      <div>
+        <h4>Principais normas citadas</h4>
+        <ul>
+          <li><b>CF/1988</b> · art. 5º, LV, XXXV e LXXVIII</li>
+          <li><b>CTN</b> · arts. 100, 151, 156 e 171</li>
+          <li><b>Decreto nº 70.235/1972</b> · processo fiscal federal</li>
+          <li><b>Lei nº 13.988/2020</b> · transação e voto</li>
+          <li><b>Lei nº 14.689/2023</b> · voto de qualidade</li>
+          <li><b>EC nº 132/2023</b> · reforma tributária</li>
+          <li><b>LC nº 214/2025 e LC nº 227/2026</b> · IBS e CBS</li>
+        </ul>
+      </div>
+    </div>
+    <p class="assinatura">
+      Direito Tributário · Contencioso Administrativo Fiscal<br>
+      Material de estudo · atualização normativa até 2026
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
